@@ -9,6 +9,7 @@ public class LoController : MonoBehaviour
     private bool isMoving;
     private bool isShooting;
     public GameObject bullet;
+    public GameObject drop;
     // Update is called once per frame
     void Update()
     {
@@ -26,6 +27,11 @@ public class LoController : MonoBehaviour
         {
             StartCoroutine(startShoot());
         }
+        
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            StartCoroutine(dropInfinite());
+        }
 
         if (isDie)
         {
@@ -41,6 +47,15 @@ public class LoController : MonoBehaviour
     public void setVisiableGameObject()
     {
         gameObject.SetActive(!gameObject.active);
+    }
+
+    IEnumerator dropInfinite()
+    {
+        while (true)
+        {
+            Instantiate(drop,new Vector3(-1, 6 ,0),Quaternion.identity);
+            yield return new WaitForSeconds(2);
+        }
     }
 
     IEnumerator startShoot()
